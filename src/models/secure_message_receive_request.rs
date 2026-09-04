@@ -20,6 +20,12 @@ pub struct SecureMessageReceiveRequest {
     /// ID of the conversation formatted like {context}-{context_id} where context is e.g. 'referral' and context_id is the id of the specifc record in that context.
     #[serde(rename = "conversation_id")]
     pub conversation_id: String,
+    /// A UUIDv4 that uniquely identifies the service this message relates to. Optional, but when present allows the SP to link the message to a specific service.
+    #[serde(rename = "service_identifier", skip_serializing_if = "Option::is_none")]
+    pub service_identifier: Option<uuid::Uuid>,
+    /// ID of the service this message relates to. Optional.
+    #[serde(rename = "service_id", skip_serializing_if = "Option::is_none")]
+    pub service_id: Option<i32>,
     /// Sender user ID
     #[serde(rename = "message_from")]
     pub message_from: String,
@@ -31,6 +37,8 @@ impl SecureMessageReceiveRequest {
         SecureMessageReceiveRequest {
             message_content,
             conversation_id,
+            service_identifier: None,
+            service_id: None,
             message_from,
         }
     }

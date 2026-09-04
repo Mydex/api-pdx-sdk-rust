@@ -15,6 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct ReferralSingleResponseReferral {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<i32>,
+    /// A UUIDv4 that uniquely identifies the service this referral relates to
+    #[serde(rename = "service_identifier", skip_serializing_if = "Option::is_none")]
+    pub service_identifier: Option<uuid::Uuid>,
     #[serde(rename = "created_timestamp", skip_serializing_if = "Option::is_none")]
     pub created_timestamp: Option<i64>,
     #[serde(rename = "service_id", skip_serializing_if = "Option::is_none")]
@@ -31,6 +34,7 @@ impl ReferralSingleResponseReferral {
     pub fn new() -> ReferralSingleResponseReferral {
         ReferralSingleResponseReferral {
             id: None,
+            service_identifier: None,
             created_timestamp: None,
             service_id: None,
             r#type: None,

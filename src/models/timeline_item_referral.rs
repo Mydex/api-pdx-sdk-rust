@@ -20,6 +20,9 @@ pub struct TimelineItemReferral {
     /// ID of the feature block record i.e. the referral id
     #[serde(rename = "feature_block_id", skip_serializing_if = "Option::is_none")]
     pub feature_block_id: Option<i32>,
+    /// A UUIDv4 that uniquely identifies the service this referral relates to
+    #[serde(rename = "service_identifier", skip_serializing_if = "Option::is_none")]
+    pub service_identifier: Option<uuid::Uuid>,
     #[serde(rename = "instance", skip_serializing_if = "Option::is_none")]
     pub instance: Option<String>,
     /// The context within which this record was created i.e. the specific connection
@@ -83,6 +86,7 @@ impl TimelineItemReferral {
         TimelineItemReferral {
             feature_block: None,
             feature_block_id: None,
+            service_identifier: None,
             instance: None,
             source: None,
             created_timestamp: None,

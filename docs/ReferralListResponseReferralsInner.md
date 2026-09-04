@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**i32**> |  | [optional]
+**service_identifier** | Option<**uuid::Uuid**> | A UUIDv4 that uniquely identifies the service this referral relates to | [optional]
 **created_timestamp** | Option<**i64**> |  | [optional]
 **service_id** | Option<**i32**> |  | [optional]
 **service_name** | Option<**String**> |  | [optional]

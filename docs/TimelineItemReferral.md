@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **feature_block** | Option<**String**> | Type of feature block this timeline item belongs to | [optional]
 **feature_block_id** | Option<**i32**> | ID of the feature block record i.e. the referral id | [optional]
+**service_identifier** | Option<**uuid::Uuid**> | A UUIDv4 that uniquely identifies the service this referral relates to | [optional]
 **instance** | Option<**String**> |  | [optional]
 **source** | Option<**String**> | The context within which this record was created i.e. the specific connection | [optional]
 **created_timestamp** | Option<**i64**> |  | [optional]

@@ -35,6 +35,9 @@ pub struct SecureMessage {
     /// Content of the message
     #[serde(rename = "message_content", skip_serializing_if = "Option::is_none")]
     pub message_content: Option<String>,
+    /// A UUIDv4 that uniquely identifies the service this message relates to, if one was provided
+    #[serde(rename = "service_identifier", skip_serializing_if = "Option::is_none")]
+    pub service_identifier: Option<uuid::Uuid>,
     /// Message status
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -51,6 +54,7 @@ impl SecureMessage {
             time_sent: None,
             time_received: None,
             message_content: None,
+            service_identifier: None,
             status: None,
         }
     }

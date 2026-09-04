@@ -17,6 +17,9 @@ pub struct ReferralCommonRequestBodyFields {
     /// ID of the service being referred to
     #[serde(rename = "service_id", skip_serializing_if = "Option::is_none")]
     pub service_id: Option<i32>,
+    /// A UUIDv4 that uniquely identifies the service this referral relates to
+    #[serde(rename = "service_identifier", skip_serializing_if = "Option::is_none")]
+    pub service_identifier: Option<uuid::Uuid>,
     /// Background information about the referree
     #[serde(rename = "referree_background", skip_serializing_if = "Option::is_none")]
     pub referree_background: Option<String>,
@@ -56,6 +59,7 @@ impl ReferralCommonRequestBodyFields {
     pub fn new() -> ReferralCommonRequestBodyFields {
         ReferralCommonRequestBodyFields {
             service_id: None,
+            service_identifier: None,
             referree_background: None,
             referree_requirements: None,
             referree_availability: None,

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **time_sent** | Option<**String**> | Timestamp when message was sent | [optional]
 **time_received** | Option<**String**> | Timestamp when message was received | [optional]
 **message_content** | Option<**String**> | Content of the message | [optional]
+**service_identifier** | Option<**uuid::Uuid**> | A UUIDv4 that uniquely identifies the service this message relates to, if one was provided | [optional]
 **status** | Option<**Status**> | Message status (enum: sent, received) | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

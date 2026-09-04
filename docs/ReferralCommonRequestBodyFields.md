@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **service_id** | Option<**i32**> | ID of the service being referred to | [optional]
+**service_identifier** | Option<**uuid::Uuid**> | A UUIDv4 that uniquely identifies the service this referral relates to | [optional]
 **referree_background** | Option<**String**> | Background information about the referree | [optional]
 **referree_requirements** | Option<**String**> | Requirements of the referree | [optional]
 **referree_availability** | Option<[**models::ReferralCommonRequestBodyFieldsReferreeAvailability**](ReferralCommonRequestBodyFieldsReferreeAvailability.md)> |  | [optional]
