@@ -3,6 +3,9 @@
 .travis.yml
 Cargo.toml
 README.md
+docs/AddReferralData.md
+docs/AddReferralRequestBody.md
+docs/AddReferralResponse.md
 docs/AuthErrorResponse.md
 docs/AuthErrorResponseError.md
 docs/CalendarApi.md
@@ -52,6 +55,9 @@ src/apis/referrals_api.rs
 src/apis/secure_messages_api.rs
 src/apis/timeline_api.rs
 src/lib.rs
+src/models/add_referral_data.rs
+src/models/add_referral_request_body.rs
+src/models/add_referral_response.rs
 src/models/auth_error_response.rs
 src/models/auth_error_response_error.rs
 src/models/calendar_appointment_create_request_body.rs

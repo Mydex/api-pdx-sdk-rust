@@ -1,3 +1,9 @@
+pub mod add_referral_data;
+pub use self::add_referral_data::AddReferralData;
+pub mod add_referral_request_body;
+pub use self::add_referral_request_body::AddReferralRequestBody;
+pub mod add_referral_response;
+pub use self::add_referral_response::AddReferralResponse;
 pub mod auth_error_response;
 pub use self::auth_error_response::AuthErrorResponse;
 pub mod auth_error_response_error;

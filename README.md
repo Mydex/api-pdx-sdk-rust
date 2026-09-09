@@ -32,6 +32,7 @@ Class | Method | HTTP request | Description
 *CalendarApi* | [**post_calendar_appointment**](docs/CalendarApi.md#post_calendar_appointment) | **POST** /calendar/add-appointment | Supports adding a calendar-appointment.
 *CalendarApi* | [**post_calendar_event**](docs/CalendarApi.md#post_calendar_event) | **POST** /calendar/add-event | Supports adding a calendar-event.
 *CalendarApi* | [**put_calendar_event**](docs/CalendarApi.md#put_calendar_event) | **PUT** /calendar/update-event | Supports updating a calendar-event.
+*ReferralsApi* | [**add_referral**](docs/ReferralsApi.md#add_referral) | **POST** /referrals/add | Initiates a referral to a remote DSSA.
 *ReferralsApi* | [**get_all_referrals**](docs/ReferralsApi.md#get_all_referrals) | **GET** /referrals/read-all | Retrieve rall referrals for a given member.
 *ReferralsApi* | [**get_single_referral**](docs/ReferralsApi.md#get_single_referral) | **GET** /referrals/read-single | Retrieve a single referral by id for a given member.
 *ReferralsApi* | [**post_self_referral**](docs/ReferralsApi.md#post_self_referral) | **POST** /referrals/self-refer | Supports self-referral.
@@ -45,6 +46,9 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AddReferralData](docs/AddReferralData.md)
+ - [AddReferralRequestBody](docs/AddReferralRequestBody.md)
+ - [AddReferralResponse](docs/AddReferralResponse.md)
  - [AuthErrorResponse](docs/AuthErrorResponse.md)
  - [AuthErrorResponseError](docs/AuthErrorResponseError.md)
  - [CalendarAppointmentCreateRequestBody](docs/CalendarAppointmentCreateRequestBody.md)

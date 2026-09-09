@@ -15,6 +15,15 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 
+/// struct for typed errors of method [`add_referral`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AddReferralError {
+    Status400(models::ErrorResponse),
+    Status401(models::AuthErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_all_referrals`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -49,6 +58,53 @@ pub enum UpdateReferralStatusError {
     UnknownValue(serde_json::Value),
 }
 
+
+/// Creates a new referral in the member's PDS targeting a remote service identified by a DSSA UUID. If the member is already connected to the remote DSSA the referral is created with status 'complete' and the remote service is notified. If the member is not connected the referral is created with status 'pending' and either an FTC URL is returned (member_present=true) or a notification is sent to the member (member_present=false).
+pub async fn add_referral(configuration: &configuration::Configuration, connection_token: &str, uid: &str, con_id: &str, add_referral_request_body: Option<models::AddReferralRequestBody>) -> Result<models::AddReferralResponse, Error<AddReferralError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_header_connection_token = connection_token;
+    let p_query_uid = uid;
+    let p_query_con_id = con_id;
+    let p_body_add_referral_request_body = add_referral_request_body;
+
+    let uri_str = format!("{}/referrals/add", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    req_builder = req_builder.query(&[("uid", &p_query_uid.to_string())]);
+    req_builder = req_builder.query(&[("con_id", &p_query_con_id.to_string())]);
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    req_builder = req_builder.header("Connection-Token", p_header_connection_token.to_string());
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_add_referral_request_body);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AddReferralResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AddReferralResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<AddReferralError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
 
 /// Returns a list of referrals.
 pub async fn get_all_referrals(configuration: &configuration::Configuration, connection_token: &str, uid: &str, con_id: &str) -> Result<models::ReferralListResponse, Error<GetAllReferralsError>> {
